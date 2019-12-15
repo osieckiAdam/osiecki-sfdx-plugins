@@ -1,0 +1,13 @@
+{
+  "deleteCommandDescription": "delete ApexLog entries from Your org",
+  "checkOnlyFlagDescription": "use this parameter to only check number of debug logs without deleting them",
+  "asyncFlagDescription": "do not wait for successful completion of the job. If ommited will poll for number of processed records until complete",
+  "recordsLenghtMessage": "Number of ApexLog records to be deleted: %i",
+  "jobStartedMessage": "Delete job is started. Id of the job: %s",
+  "jobStartedMessageAsync": "To poll status of the job, run command 'sfdx force:data:bulk:status -i %s -u %s",
+  "jobFinishedMessage": "\nJob is finished, status of the job is: %s\nTotal processing time was %i ms",
+  "failedRecordsMessage": "Number of failed records: %i",
+  "successMessage": "All records were deleted sucessfully",
+  "noLogsMessage": "There are no Apex logs on Your org!",
+  "errorMessage": "Error is thrown: %s"
+}

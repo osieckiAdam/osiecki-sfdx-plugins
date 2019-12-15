@@ -30,26 +30,29 @@ USAGE
 ```
 <!-- usagestop -->
 <!-- commands -->
-* [`sfdx hello:org [-n <string>] [-f] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-helloorg--n-string--f--v-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx osiecki:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-osieckiapexlogdelete--c--a--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
-## `sfdx hello:org [-n <string>] [-f] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sfdx osiecki:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
-print a greeting and your org IDs
+delete ApexLog entries from Your org
 
 ```
 USAGE
-  $ sfdx hello:org [-n <string>] [-f] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel 
+  $ sfdx osiecki:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel 
   trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
-  -f, --force                                                                       example boolean flag
-  -n, --name=name                                                                   name to print
+  -a, --async                                                                       do not wait for successful
+                                                                                    completion of the job. If ommited
+                                                                                    will poll for number of processed
+                                                                                    records until complete
+
+  -c, --checkonly                                                                   use this parameter to only check
+                                                                                    number of debug logs without
+                                                                                    deleting them
 
   -u, --targetusername=targetusername                                               username or alias for the target
                                                                                     org; overrides default target org
-
-  -v, --targetdevhubusername=targetdevhubusername                                   username or alias for the dev hub
-                                                                                    org; overrides default dev hub org
 
   --apiversion=apiversion                                                           override the api version used for
                                                                                     api requests made by this command
@@ -60,13 +63,25 @@ OPTIONS
                                                                                     this command invocation
 
 EXAMPLES
-  $ sfdx hello:org --targetusername myOrg@example.com --targetdevhubusername devhub@org.com
-     Hello world! This is org: MyOrg and I will be around until Tue Mar 20 2018!
-     My hub org id is: 00Dxx000000001234
-  
-  $ sfdx hello:org --name myname --targetusername myOrg@example.com
-     Hello myname! This is org: MyOrg and I will be around until Tue Mar 20 2018!
+   
+  sfdx osiecki:apex:log:delete 
+       Number of ApexLog records to be deleted: 100
+       Delete job is started. Id of the job: 7501w000002WA2EAAW
+       Processed records: 100 / 100
+       Job is finished, status of the job is: Completed
+       Total processing time was 2154 ms
+       All records were deleted sucessfully
+   
+  sfdx osiecki:apex:log:delete -c -u username@your.org
+       Number of ApexLog records to be deleted: 10
+
+  sfdx osiecki:apex:log:delete --async
+       Number of ApexLog records to be deleted: 7
+       Delete job is started. Id of the job: 7501w000002WEuKAAW
+       To poll status of the job, run command 'sfdx force:data:bulk:status -i 7501w000002WEsi'
 ```
+
+_See code: [lib\commands\osiecki\apex\log\delete.js](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/v0.0.0/lib\commands\osiecki\apex\log\delete.js)_
 <!-- commandsstop -->
 <!-- debugging-your-plugin -->
 # Debugging your plugin
