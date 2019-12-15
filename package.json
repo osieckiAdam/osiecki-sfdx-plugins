@@ -1,7 +1,7 @@
 {
   "name": "osiecki-sfdx-plugins",
   "description": "SFDX plugins by Adam Osiecki",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "Adam Osiecki @osieckiAdam",
   "bugs": "https://github.com/osieckiAdam/osiecki-sfdx-plugins/issues",
   "dependencies": {
@@ -46,8 +46,8 @@
     "commands": "./lib/commands",
     "bin": "sfdx",
     "topics": {
-      "hello": {
-        "description": "Commands to say hello."
+      "apex": {
+        "description": "work with Apex code"
       }
     },
     "devPlugins": [

@@ -14,7 +14,7 @@ export default class Delete extends SfdxCommand {
     };
     public static examples = [
         `   
-sfdx osiecki:apex:log:delete 
+sfdx oa:apex:log:delete 
     Number of ApexLog records to be deleted: 100
     Delete job is started. Id of the job: 7501w000002WA2EAAW
     Processed records: 100 / 100
@@ -22,10 +22,10 @@ sfdx osiecki:apex:log:delete
     Total processing time was 2154 ms
     All records were deleted sucessfully`,
         `   
-sfdx osiecki:apex:log:delete -c -u username@your.org
+sfdx oa:apex:log:delete -c -u username@your.org
     Number of ApexLog records to be deleted: 10`,
         `
-sfdx osiecki:apex:log:delete --async
+sfdx oa:apex:log:delete --async
     Number of ApexLog records to be deleted: 7
     Delete job is started. Id of the job: 7501w000002WEuKAAW
     To poll status of the job, run command 'sfdx force:data:bulk:status -i 7501w000002WEsi'`

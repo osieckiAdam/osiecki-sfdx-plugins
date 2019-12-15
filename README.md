@@ -22,7 +22,7 @@ $ npm install -g osiecki-sfdx-plugins
 $ sfdx COMMAND
 running command...
 $ sfdx (-v|--version|version)
-osiecki-sfdx-plugins/0.0.0 win32-x64 node-v10.16.3
+osiecki-sfdx-plugins/0.1.0 win32-x64 node-v10.16.3
 $ sfdx --help [COMMAND]
 USAGE
   $ sfdx COMMAND
@@ -30,15 +30,15 @@ USAGE
 ```
 <!-- usagestop -->
 <!-- commands -->
-* [`sfdx osiecki:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-osieckiapexlogdelete--c--a--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-oaapexlogdelete--c--a--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
-## `sfdx osiecki:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
 delete ApexLog entries from Your org
 
 ```
 USAGE
-  $ sfdx osiecki:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel 
+  $ sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel 
   trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
@@ -64,7 +64,7 @@ OPTIONS
 
 EXAMPLES
    
-  sfdx osiecki:apex:log:delete 
+  sfdx oa:apex:log:delete 
        Number of ApexLog records to be deleted: 100
        Delete job is started. Id of the job: 7501w000002WA2EAAW
        Processed records: 100 / 100
@@ -72,16 +72,16 @@ EXAMPLES
        Total processing time was 2154 ms
        All records were deleted sucessfully
    
-  sfdx osiecki:apex:log:delete -c -u username@your.org
+  sfdx oa:apex:log:delete -c -u username@your.org
        Number of ApexLog records to be deleted: 10
 
-  sfdx osiecki:apex:log:delete --async
+  sfdx oa:apex:log:delete --async
        Number of ApexLog records to be deleted: 7
        Delete job is started. Id of the job: 7501w000002WEuKAAW
        To poll status of the job, run command 'sfdx force:data:bulk:status -i 7501w000002WEsi'
 ```
 
-_See code: [lib\commands\osiecki\apex\log\delete.js](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/v0.0.0/lib\commands\osiecki\apex\log\delete.js)_
+_See code: [lib\commands\oa\apex\log\delete.js](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/v0.1.0/lib\commands\oa\apex\log\delete.js)_
 <!-- commandsstop -->
 <!-- debugging-your-plugin -->
 # Debugging your plugin
