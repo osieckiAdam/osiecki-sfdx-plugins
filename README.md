@@ -45,7 +45,7 @@ yarn install
 Link the plugin
 
 ```
-sfdx plugins:ling
+sfdx plugins:link
 ```
 
 <!-- install -->

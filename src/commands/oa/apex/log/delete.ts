@@ -39,7 +39,6 @@ sfdx oa:apex:log:delete --async
         conn
             .sobject("ApexLog")
             .find({}, ["Id"])
-            .limit(100)
             .sort({ LogLength: -1 })
             .execute({ autoFetch: true, maxFetch: 10000 }, function (err, records) {
                 if (err) {
