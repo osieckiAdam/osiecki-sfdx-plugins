@@ -105,6 +105,6 @@ EXAMPLES
        To poll status of the job, run command 'sfdx force:data:bulk:status -i 7501w000002WEsi'
 ```
 
-_See code: [lib\commands\oa\apex\log\delete.js](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/v0.1.0/lib\commands\oa\apex\log\delete.js)_
+_See code: [lib\commands\oa\apex\log\delete.js](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/v0.1.1/lib\commands\oa\apex\log\delete.js)_
 
 <!-- commandsstop -->
