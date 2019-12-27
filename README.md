@@ -53,8 +53,7 @@ sfdx plugins:link
 ## Commands
 
 <!-- commands -->
-
-- [`sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-oaapexlogdelete--c--a--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-oaapexlogdelete--c--a--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
 ## `sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -62,7 +61,7 @@ delete ApexLog entries from Your org
 
 ```
 USAGE
-  $ sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel
+  $ sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel 
   trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
@@ -103,8 +102,16 @@ EXAMPLES
        Number of ApexLog records to be deleted: 7
        Delete job is started. Id of the job: 7501w000002WEuKAAW
        To poll status of the job, run command 'sfdx force:data:bulk:status -i 7501w000002WEsi'
+
+  sfdx oa:apex:log:delete --json'
+       {
+         "status": 0,
+         "result": {
+           "numberOfQueriedLogs": 3,
+           "jobID": "7501w000002WnWcAAK"
+         }
+       }
 ```
 
 _See code: [lib\commands\oa\apex\log\delete.js](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/v0.1.1/lib\commands\oa\apex\log\delete.js)_
-
 <!-- commandsstop -->

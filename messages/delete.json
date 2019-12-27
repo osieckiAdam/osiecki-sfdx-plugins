@@ -5,7 +5,7 @@
   "recordsLenghtMessage": "Number of ApexLog records to be deleted: %i",
   "jobStartedMessage": "Delete job is started. Id of the job: %s",
   "jobStartedMessageAsync": "To poll status of the job, run command 'sfdx force:data:bulk:status -i %s -u %s",
-  "jobFinishedMessage": "\nJob is finished, status of the job is: %s\nTotal processing time was %i ms",
+  "jobFinishedMessage": "\nJob is finished",
   "failedRecordsMessage": "Number of failed records: %i",
   "successMessage": "All records were deleted sucessfully",
   "noLogsMessage": "There are no Apex logs on Your org!",
