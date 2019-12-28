@@ -10,7 +10,7 @@
     "@oclif/errors": "^1",
     "@salesforce/command": "^2",
     "@salesforce/core": "^2",
-    "@types/jsforce": "^1.9.13",
+    "@types/jsforce": "^1.9.12",
     "tslib": "^1"
   },
   "devDependencies": {
