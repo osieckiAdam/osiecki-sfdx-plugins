@@ -53,7 +53,8 @@ sfdx plugins:link
 ## Commands
 
 <!-- commands -->
-* [`sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-oaapexlogdelete--c--a--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+
+- [`sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-oaapexlogdelete--c--a--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
 ## `sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -61,7 +62,7 @@ delete ApexLog entries from Your org
 
 ```
 USAGE
-  $ sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel 
+  $ sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel
   trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
@@ -113,5 +114,6 @@ EXAMPLES
        }
 ```
 
-_See code: [lib\commands\oa\apex\log\delete.js](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/v0.1.1/lib\commands\oa\apex\log\delete.js)_
+_See code: [lib\commands\oa\apex\log\delete.js](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/v0.1.3/lib\commands\oa\apex\log\delete.js)_
+
 <!-- commandsstop -->

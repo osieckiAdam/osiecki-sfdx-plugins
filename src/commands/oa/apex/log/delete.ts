@@ -1,6 +1,6 @@
 import { core, flags, SfdxCommand } from '@salesforce/command';
+import { Batch } from '@salesforce/core/node_modules/@types/jsforce';
 import { AnyJson } from '@salesforce/ts-types';
-import { Batch } from 'jsforce';
 
 core.Messages.importMessagesDirectory(__dirname);
 const messages = core.Messages.loadMessages('osiecki-sfdx-plugins', 'delete');
