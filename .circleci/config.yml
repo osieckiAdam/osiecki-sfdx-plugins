@@ -20,7 +20,7 @@ jobs:
           name: Testing
           command: yarn test
       - codecov/upload:
-          file: { { .nyc_output\*.json } }
+          file: .nyc_output\*.json
   node-8:
     <<: *test
     docker:
