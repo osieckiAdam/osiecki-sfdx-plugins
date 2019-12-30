@@ -59,7 +59,7 @@
   "repository": "osieckiAdam/osiecki-sfdx-plugins",
   "scripts": {
     "postpack": "rimraf oclif.manifest.json",
-    "pretest": "tslint -p test -t stylish",
+    "posttest": "tslint -p test -t stylish",
     "prepack": "rimraf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "nyc --reporter=lcovonly --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md"
