@@ -4,9 +4,12 @@ A plugin for the Salesforce CLI built by Adam Osiecki
 
 [![Version](https://img.shields.io/npm/v/osiecki-sfdx-plugins.svg)](https://npmjs.org/package/osiecki-sfdx-plugins)
 [![CircleCI](https://circleci.com/gh/osieckiAdam/osiecki-sfdx-plugins/tree/master.svg?style=shield)](https://circleci.com/gh/osieckiAdam/osiecki-sfdx-plugins/tree/master)
+[![Appveyor CI](https://ci.appveyor.com/api/projects/status/github/osieckiAdam/osiecki-sfdx-plugins?branch=master&svg=true)](https://ci.appveyor.com/project/heroku/osiecki-sfdx-plugins/branch/master)
 [![Codecov](https://codecov.io/gh/osieckiAdam/osiecki-sfdx-plugins/branch/master/graph/badge.svg)](https://codecov.io/gh/osieckiAdam/osiecki-sfdx-plugins)
 [![Downloads/week](https://img.shields.io/npm/dw/osiecki-sfdx-plugins.svg)](https://npmjs.org/package/osiecki-sfdx-plugins)
-[![License](https://img.shields.io/npm/l/osiecki-sfdx-plugins.svg)](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/master/package.json)
+[![License](https://img.shields.io/npm/l/osiecki-sfdx-plugins.svg)](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/master/package.json) 
+[![Greenkeeper badge](https://badges.greenkeeper.io/osieckiAdam/osiecki-sfdx-plugins.svg)](https://greenkeeper.io/)
+[![Known Vulnerabilities](https://snyk.io/test/github/osieckiAdam/osiecki-sfdx-plugins/badge.svg)](https://snyk.io/test/github/osieckiAdam/osiecki-sfdx-plugins)
 
 ## Setup
 
