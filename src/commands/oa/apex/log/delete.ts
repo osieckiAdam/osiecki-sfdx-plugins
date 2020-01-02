@@ -68,9 +68,6 @@ sfdx oa:apex:log:delete --json'
       .sobject('ApexLog')
       .find({}, ['Id'])
       .execute({ autoFetch: true, maxFetch: 10000 }, async (err, records) => {
-        if (err) {
-          return console.error(err);
-        }
         return records;
       });
     return response;
