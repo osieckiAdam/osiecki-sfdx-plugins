@@ -58,8 +58,8 @@ sfdx plugins:link
 ## Commands
 
 <!-- commands -->
-
-- [`sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-oaapexlogdelete--c--a--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-oaapexlogdelete--c--a--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx oa:data:soql:sel -f <string> [-w <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-oadatasoqlsel--f-string--w-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
 ## `sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -67,7 +67,7 @@ delete ApexLog entries from Your org
 
 ```
 USAGE
-  $ sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel
+  $ sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel 
   trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
@@ -119,6 +119,54 @@ EXAMPLES
        }
 ```
 
-_See code: [lib\commands\oa\apex\log\delete.js](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/v0.1.3/lib\commands\oa\apex\log\delete.js)_
+_See code: [lib\commands\oa\apex\log\delete.js](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/v0.2.0/lib\commands\oa\apex\log\delete.js)_
 
+## `sfdx oa:data:soql:sel -f <string> [-w <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+generate query for all fields from SObject (SEL * FROM SObject)
+
+```
+USAGE
+  $ sfdx oa:data:soql:sel -f <string> [-w <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel 
+  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -f, --from=from                                                                   (required) SObject to generate query
+                                                                                    for
+
+  -u, --targetusername=targetusername                                               username or alias for the target
+                                                                                    org; overrides default target org
+
+  -w, --where=where                                                                 Add WHERE clause to Your query
+
+  --apiversion=apiversion                                                           override the api version used for
+                                                                                    api requests made by this command
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLES
+  sfdx oa:data:soql:sel -f ApexLog
+       Your query was succesfully copied to clipboard:
+       SELECT Id, LogUserId, LogLength, LastModifiedDate, Request, Operation, Application, Status, DurationMilliseconds,
+       SystemModstamp, StartTime, Location FROM ApexLog
+    
+  sfdx oa:data:soql:sel -f ApexLog --json
+       {
+         "status": 0,
+         "result": {
+           "query": "SELECT Id, LogUserId, LogLength, LastModifiedDate, Request, Operation, Application, Status,
+           DurationMilliseconds, SystemModstamp, StartTime, Location FROM ApexLog"
+         }
+       }
+    
+  sfdx oa:data:soql:sel -f ApexLog -w "LogLength > 100"
+       Your query was succesfully copied to clipboard:
+       SELECT Id, LogUserId, LogLength, LastModifiedDate, Request, Operation, Application, Status, DurationMilliseconds,
+       SystemModstamp, StartTime, Location FROM ApexLog WHERE Where LogLength > 100
+```
+
+_See code: [lib\commands\oa\data\soql\sel.js](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/v0.2.0/lib\commands\oa\data\soql\sel.js)_
 <!-- commandsstop -->

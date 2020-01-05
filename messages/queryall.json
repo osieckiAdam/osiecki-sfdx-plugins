@@ -1,4 +1,0 @@
-{
-  "commandDescription": "query all fields from SObject, [SEL*]",
-  "copyToClipboardOnlyFlagDescription": "copy the generated query string to clipboard, does not execute the query"
-}

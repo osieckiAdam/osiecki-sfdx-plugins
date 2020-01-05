@@ -1,0 +1,5 @@
+{
+  "commandDescription": "generate query for all fields from SObject (SEL * FROM SObject)",
+  "fromFlagDescription": "SObject to generate query for",
+  "whereFlagDescription": "Add WHERE clause to Your query"
+}
