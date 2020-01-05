@@ -1,6 +1,6 @@
 import { core, flags, SfdxCommand } from '@salesforce/command';
 import { AnyJson } from '@salesforce/ts-types';
-// import clipboardy = require('clipboardy');
+import ncp = require('copy-paste');
 
 core.Messages.importMessagesDirectory(__dirname);
 const messages = core.Messages.loadMessages('osiecki-sfdx-plugins', 'sel');
@@ -38,9 +38,6 @@ export default class Sel extends SfdxCommand {
 
   public async run(): Promise<AnyJson> {
     let query: string = '';
-    if (this.flags.from) {
-      this.ux.log(this.flags.from);
-    }
     const conn = this.org.getConnection();
     await conn.sobject(this.flags.from).find().where(this.flags.where)
       .toSOQL((err, res) => {
@@ -48,8 +45,8 @@ export default class Sel extends SfdxCommand {
           this.ux.log(err.message);
         } else {
           query += res;
-          // clipboardy.writeSync(res);
-          this.ux.log('Your query was succesfully copied to clipboard:\n' + res);
+          ncp.copy(query);
+          this.ux.log('Your query was succesfully copied to clipbzoard:\n' + query);
         }
       });
     return { query };
