@@ -15,7 +15,7 @@ jobs:
             - v1-npm-{{checksum ".circleci/config.yml"}}
       - run:
           name: Config env
-          command: sudo apt install xsel
+          command: sudo apt-get install -y xsel
       - run:
           name: Install dependencies
           command: yarn
