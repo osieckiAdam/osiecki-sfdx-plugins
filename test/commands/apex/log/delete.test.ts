@@ -1,25 +1,21 @@
 import { $$, expect, test } from '@salesforce/command/lib/test';
+import { ensureJsonMap, ensureString } from '@salesforce/ts-types';
 import { EventEmitter } from 'events';
 import * as deleteClass from '../../../../src/commands/oa/apex/log/delete';
 
 class BatchMock extends EventEmitter { public poll() { } }
 const mockSubscripton = new BatchMock();
+const requestTimeout = 700;
 
 describe('apex:log:delete, 2 records queried', () => {
   beforeEach(() => {
-    $$.SANDBOX.stub(deleteClass.default.prototype, 'getAllApexLogs').callsFake(async () => {
-      return ([
-        { Id: '07L1w000007NcJtEAK' }, { Id: '07L1w000007NcJoEAK' }
-      ]);
-    });
-
     // @ts-ignore
     $$.SANDBOX.stub(deleteClass.default.prototype, 'createBatch').callsFake(() => {
       return mockSubscripton;
     });
     setTimeout(() => {
       mockSubscripton.emit('queue', { jobId: '1231233' });
-    }, 600);
+    }, requestTimeout);
 
   });
 
@@ -34,14 +30,21 @@ describe('apex:log:delete, 2 records queried', () => {
     beforeEach(() => {
       setTimeout(() => {
         mockSubscripton.emit('progress', { numberRecordsProcessed: '1' });
-      }, 700);
+      }, requestTimeout + 100);
       setTimeout(() => {
         mockSubscripton.emit('response', [{ id: '07L1w000007NcJtEAK', success: true, errors: [] }, { id: '07L1w000007NcJoEAK', success: true, errors: [] }]);
-      }, 800);
+      }, requestTimeout + 200);
     });
 
     test
       .withOrg({ username: 'test@org.com' }, true)
+      .withConnectionRequest(request => {
+        const requestMap = ensureJsonMap(request);
+        if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+          return Promise.resolve({ done: true, records: [{ Id: '07L1w000007OMcYEAW' }, { Id: '07L1w000007OMchEAG' }] });
+        }
+        return Promise.resolve({ records: [] });
+      })
       .stdout()
       .command(['oa:apex:log:delete', '-u', 'test@org.com'])
       .it('runs oa:apex:log:delete -u test@org.com', ctx => {
@@ -55,6 +58,13 @@ describe('apex:log:delete, 2 records queried', () => {
 
     test
       .withOrg({ username: 'test@org.com' }, true)
+      .withConnectionRequest(request => {
+        const requestMap = ensureJsonMap(request);
+        if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+          return Promise.resolve({ done: true, records: [{ Id: '07L1w000007OMcYEAW' }, { Id: '07L1w000007OMchEAG' }] });
+        }
+        return Promise.resolve({ records: [] });
+      })
       .stdout()
       .command(['oa:apex:log:delete', '-u', 'test@org.com', '--json'])
       .it('runs oa:apex:log:delete -u test@org.com --json', ctx => {
@@ -64,6 +74,13 @@ describe('apex:log:delete, 2 records queried', () => {
 
     test
       .withOrg({ username: 'test@org.com' }, true)
+      .withConnectionRequest(request => {
+        const requestMap = ensureJsonMap(request);
+        if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+          return Promise.resolve({ done: true, records: [{ Id: '07L1w000007OMcYEAW' }, { Id: '07L1w000007OMchEAG' }] });
+        }
+        return Promise.resolve({ records: [] });
+      })
       .stdout()
       .command(['oa:apex:log:delete', '-u', 'test@org.com', '-a'])
       .it('runs oa:apex:log:delete -u test@org.com -a', ctx => {
@@ -74,6 +91,13 @@ describe('apex:log:delete, 2 records queried', () => {
 
     test
       .withOrg({ username: 'test@org.com' }, true)
+      .withConnectionRequest(request => {
+        const requestMap = ensureJsonMap(request);
+        if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+          return Promise.resolve({ done: true, records: [{ Id: '07L1w000007OMcYEAW' }, { Id: '07L1w000007OMchEAG' }] });
+        }
+        return Promise.resolve({ records: [] });
+      })
       .stdout()
       .command(['oa:apex:log:delete', '-u', 'test@org.com', '-a', '--json'])
       .it('runs oa:apex:log:delete -u test@org.com -a --json', ctx => {
@@ -88,11 +112,18 @@ describe('apex:log:delete, 2 records queried', () => {
       setTimeout(() => {
         mockSubscripton.emit('response',
           [{ id: '07L1w000007NcJtEAK', success: true, errors: [] }, { id: '07L1w000007NcJoEAK', success: false, errors: ['test error'] }]);
-      }, 600);
+      }, requestTimeout);
     });
 
     test
       .withOrg({ username: 'test@org.com' }, true)
+      .withConnectionRequest(request => {
+        const requestMap = ensureJsonMap(request);
+        if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+          return Promise.resolve({ done: true, records: [{ Id: '07L1w000007OMcYEAW' }, { Id: '07L1w000007OMchEAG' }] });
+        }
+        return Promise.resolve({ records: [] });
+      })
       .stdout()
       .command(['oa:apex:log:delete', '-u', 'test@org.com'])
       .it('runs oa:apex:log:delete -u test@org.com', ctx => {
@@ -101,6 +132,13 @@ describe('apex:log:delete, 2 records queried', () => {
 
     test
       .withOrg({ username: 'test@org.com' }, true)
+      .withConnectionRequest(request => {
+        const requestMap = ensureJsonMap(request);
+        if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+          return Promise.resolve({ done: true, records: [{ id: '07L1w000007NcJtEAK', success: true, errors: [] }, { id: '07L1w000007NcJoEAK', success: false, errors: ['test error'] }] });
+        }
+        return Promise.resolve({ records: [] });
+      })
       .stdout()
       .command(['oa:apex:log:delete', '-u', 'test@org.com', '--json'])
       .it('runs oa:apex:log:delete -u test@org.com --json', ctx => {
@@ -113,11 +151,18 @@ describe('apex:log:delete, 2 records queried', () => {
     beforeEach(() => {
       setTimeout(() => {
         mockSubscripton.emit('error', ('test error message'));
-      }, 600);
+      }, requestTimeout);
     });
 
     test
       .withOrg({ username: 'test@org.com' }, true)
+      .withConnectionRequest(request => {
+        const requestMap = ensureJsonMap(request);
+        if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+          return Promise.resolve({ done: true, records: [{ Id: '07L1w000007OMcYEAW' }, { Id: '07L1w000007OMchEAG' }] });
+        }
+        return Promise.resolve({ records: [] });
+      })
       .stdout()
       .command(['oa:apex:log:delete', '-u', 'test@org.com'])
       .it('runs oa:apex:log:delete -u test@org.com', ctx => {
@@ -128,16 +173,15 @@ describe('apex:log:delete, 2 records queried', () => {
 
 describe('apex:log:delete, check only', () => {
 
-  beforeEach(() => {
-    $$.SANDBOX.stub(deleteClass.default.prototype, 'getAllApexLogs').callsFake(async () => {
-      return ([
-        { Id: '07L1w000007NcJtEAK' }, { Id: '07L1w000007NcJoEAK' }
-      ]);
-    });
-  });
-
   test
     .withOrg({ username: 'test@org.com' }, true)
+    .withConnectionRequest(request => {
+      const requestMap = ensureJsonMap(request);
+      if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+        return Promise.resolve({ done: true, records: [{ id: '07L1w000007NcJtEAK', success: true, errors: [] }, { id: '07L1w000007NcJoEAK', success: false, errors: ['test error'] }] });
+      }
+      return Promise.resolve({ records: [] });
+    })
     .stdout()
     .command(['oa:apex:log:delete', '-u', 'test@org.com', '-c'])
     .it('runs oa:apex:log:delete -u test@org.com -c', ctx => {
@@ -146,6 +190,13 @@ describe('apex:log:delete, check only', () => {
 
   test
     .withOrg({ username: 'test@org.com' }, true)
+    .withConnectionRequest(request => {
+      const requestMap = ensureJsonMap(request);
+      if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+        return Promise.resolve({ done: true, records: [{ id: '07L1w000007NcJtEAK', success: true, errors: [] }, { id: '07L1w000007NcJoEAK', success: false, errors: ['test error'] }] });
+      }
+      return Promise.resolve({ records: [] });
+    })
     .stdout()
     .command(['oa:apex:log:delete', '-u', 'test@org.com', '-c', '--json'])
     .it('runs oa:apex:log:delete -u test@org.com -c --json', ctx => {
@@ -154,14 +205,16 @@ describe('apex:log:delete, check only', () => {
 });
 
 describe('apex:log:delete, zero logs queried', () => {
-  beforeEach(() => {
-    $$.SANDBOX.stub(deleteClass.default.prototype, 'getAllApexLogs').callsFake(async () => {
-      return Promise.resolve([]);
-    });
-  });
 
   test
     .withOrg({ username: 'test@org.com' }, true)
+    .withConnectionRequest(request => {
+      const requestMap = ensureJsonMap(request);
+      if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+        return Promise.resolve({ done: true, records: [] });
+      }
+      return Promise.resolve({ records: [] });
+    })
     .stdout()
     .command(['oa:apex:log:delete', '-u', 'test@org.com'])
     .it('runs oa:apex:log:delete -u test@org.com', ctx => {
@@ -170,6 +223,13 @@ describe('apex:log:delete, zero logs queried', () => {
 
   test
     .withOrg({ username: 'test@org.com' }, true)
+    .withConnectionRequest(request => {
+      const requestMap = ensureJsonMap(request);
+      if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+        return Promise.resolve({ done: true, records: [] });
+      }
+      return Promise.resolve({ records: [] });
+    })
     .stdout()
     .command(['oa:apex:log:delete', '-u', 'test@org.com', '--json'])
     .it('runs oa:apex:log:delete -u test@org.com --json', ctx => {

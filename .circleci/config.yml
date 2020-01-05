@@ -18,13 +18,9 @@ jobs:
           command: yarn
       - run:
           name: Testing
-          command: yarn test
+          command: yarn testcov
       - codecov/upload:
           file: coverage/lcov.info
-  node-8:
-    <<: *test
-    docker:
-      - image: node:8
   node-10:
     <<: *test
     docker:
@@ -48,7 +44,6 @@ workflows:
   "osiecki-sfdx-plugins":
     jobs:
       - node-latest
-      - node-8
       - node-10
       - cache:
           filters:
