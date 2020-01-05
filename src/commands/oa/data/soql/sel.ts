@@ -1,6 +1,6 @@
 import { core, flags, SfdxCommand } from '@salesforce/command';
 import { AnyJson } from '@salesforce/ts-types';
-import clipboardy = require('clipboardy');
+// import clipboardy = require('clipboardy');
 
 core.Messages.importMessagesDirectory(__dirname);
 const messages = core.Messages.loadMessages('osiecki-sfdx-plugins', 'sel');
@@ -48,7 +48,7 @@ export default class Sel extends SfdxCommand {
           this.ux.log(err.message);
         } else {
           query += res;
-          clipboardy.writeSync(res);
+          // clipboardy.writeSync(res);
           this.ux.log('Your query was succesfully copied to clipboard:\n' + res);
         }
       });
