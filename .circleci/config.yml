@@ -13,7 +13,9 @@ jobs:
           keys:
             - v1-npm-{{checksum ".circleci/config.yml"}}-{{checksum "yarn.lock"}}
             - v1-npm-{{checksum ".circleci/config.yml"}}
-      - run: sudo apt install xsel
+      - run:
+          name: Config env
+          command: sudo apt install xsel
       - run:
           name: Install dependencies
           command: yarn
