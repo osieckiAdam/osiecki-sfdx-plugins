@@ -1,5 +1,6 @@
 {
-  "commandDescription": "generate query for all fields from SObject (SEL * FROM SObject)",
+  "commandDescription": "generate query string for all fields from SObject (SEL * FROM SObject)",
   "fromFlagDescription": "SObject to generate query for",
-  "whereFlagDescription": "Add WHERE clause to Your query"
+  "whereFlagDescription": "Add WHERE clause to Your query",
+  "successMessage": "Your query was succesfully copied to clipboard:\n + %q"
 }

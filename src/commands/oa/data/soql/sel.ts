@@ -46,7 +46,7 @@ export default class Sel extends SfdxCommand {
         } else {
           query += res;
           ncp.copy(query);
-          this.ux.log('Your query was succesfully copied to clipbzoard:\n' + query);
+          this.ux.log(messages.getMessage('successMessage', [query]));
         }
       });
     return { query };
