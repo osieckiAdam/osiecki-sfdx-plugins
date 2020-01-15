@@ -92,7 +92,7 @@ sfdx oa:apex:log:delete --json'
         jobId = batchDetails.jobId;
         this.ux.log(messages.getMessage('jobStartedMessage', [jobId]));
         if (this.flags.async) {
-          this.ux.log(messages.getMessage('jobStartedMessageAsync', [jobId, this.flags.targetusername]));
+          this.ux.log(messages.getMessage('jobStartedMessageAsync', [jobId, this.org.getConnection().getUsername()]));
           resolve({ numberOfQueriedLogs: totalNumberOfRecords, jobID: jobId });
         } else {
           batch.poll(2000, 10000000);

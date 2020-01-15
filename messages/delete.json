@@ -8,6 +8,5 @@
   "jobFinishedMessage": "\nJob is finished",
   "failedRecordsMessage": "Number of failed records: %i",
   "successMessage": "All records were deleted sucessfully",
-  "noLogsMessage": "There are no Apex logs on Your org!",
-  "errorMessage": "Error is thrown: %s"
+  "noLogsMessage": "There are no Apex logs on Your org!"
 }

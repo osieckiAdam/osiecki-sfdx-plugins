@@ -5,7 +5,7 @@ import * as deleteClass from '../../../../src/commands/oa/apex/log/delete';
 
 class BatchMock extends EventEmitter { public poll() { } }
 const mockSubscripton = new BatchMock();
-const requestTimeout = 700;
+const requestTimeout = 1000;
 
 describe('apex:log:delete, 2 records queried', () => {
   beforeEach(() => {
