@@ -5,7 +5,7 @@
   "author": "Adam Osiecki @osieckiAdam",
   "bugs": "https://github.com/osieckiAdam/osiecki-sfdx-plugins/issues",
   "dependencies": {
-    "@oclif/command": "^1",
+    "@oclif/command": "^1.6.1",
     "@oclif/config": "^1",
     "@oclif/errors": "^1",
     "@salesforce/command": "^2",
