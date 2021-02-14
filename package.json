@@ -9,7 +9,7 @@
     "@oclif/config": "^1",
     "@oclif/errors": "^1",
     "@salesforce/command": "^2",
-    "@salesforce/core": "^2",
+    "@salesforce/core": "^2.4.1",
     "@types/copy-paste": "^1.1.30",
     "@types/jsforce": "^1.9.12",
     "clipboardy": "^2.1.0",
