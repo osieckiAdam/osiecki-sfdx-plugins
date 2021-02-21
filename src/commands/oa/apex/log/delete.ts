@@ -37,7 +37,7 @@ sfdx oa:apex:log:delete --json'
 sfdx oa:apex:log:delete -s "Internal Salesforce.com Error,success"
     Query: SELECT Id FROM ApexLog WHERE Status IN ('Internal Salesforce.com Error','success') does not return any record`,
     `
-sfdx oa:apex:log:delete -m 
+sfdx oa:apex:log:delete -m
     Query: SELECT Id FROM ApexLog WHERE LogUserId = '0054J000005OInNQAW' does not return any record`,
     `
 oa:apex:log:delete -c -n test1@user.org,test2@user.org
@@ -52,7 +52,7 @@ oa:apex:log:delete -c -n test1@user.org,test2@user.org
     name: flags.array({ char: 'n', description: messages.getMessage('nameFlagDescription') }),
     my: flags.boolean({ char: 'm', description: messages.getMessage('myFlagDescription') })
   };
-  private queryString: String;
+  private queryString: string;
 
   public async run(): Promise<AnyJson> {
 
@@ -82,13 +82,13 @@ oa:apex:log:delete -c -n test1@user.org,test2@user.org
       .sobject('ApexLog')
       .find({}, ['Id']);
 
-    let whereClause = await this.buildWhereClause(conn);
+    const whereClause = await this.buildWhereClause(conn);
     if (whereClause) {
       query = query.where(whereClause);
     }
     this.queryString = await query.toSOQL((err, soql) => {
       return soql;
-    })
+    });
 
     const response = query.execute({ autoFetch: true, maxFetch: 20000 }, async (err, records) => {
       return records;
@@ -96,21 +96,21 @@ oa:apex:log:delete -c -n test1@user.org,test2@user.org
     return response;
   }
 
-  private async buildWhereClause(conn: core.Connection): Promise<String> {
+  private async buildWhereClause(conn: core.Connection): Promise<string> {
 
-    let whereClause: Array<String> = new Array<String>();
+    const whereClause: string[] = new Array<string>();
     if (this.flags.my) {
       const identitystr = (await conn.identity()).user_id;
       whereClause.push("LogUserId = '" + identitystr + "'");
     } else if (this.flags.name) {
-      let formatedNames = this.flags.name.reduce((acc, currval) => {
+      const formatedNames = this.flags.name.reduce((acc, currval) => {
         return acc + '\'' + currval + '\',';
       }, '').slice(0, -1);
       whereClause.push(`LogUser.Username IN (${formatedNames})`);
     }
 
     if (this.flags.status) {
-      let formatedStatuses = this.flags.status.reduce((acc, currval) => {
+      const formatedStatuses = this.flags.status.reduce((acc, currval) => {
         return acc + '\'' + currval + '\',';
       }, '').slice(0, -1);
       whereClause.push(`Status IN (${formatedStatuses})`);
@@ -122,7 +122,7 @@ oa:apex:log:delete -c -n test1@user.org,test2@user.org
     return '';
   }
 
-  public createBatch(conn: core.Connection, records: Array<{ Id?: string; }>): Batch {
+  private createBatch(conn: core.Connection, records: Array<{ Id?: string; }>): Batch {
     return conn.bulk.createJob('ApexLog', 'delete').createBatch().execute(records);
   }
 
