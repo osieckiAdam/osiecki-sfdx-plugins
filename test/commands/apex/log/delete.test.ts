@@ -6,6 +6,9 @@ import * as deleteClass from '../../../../src/commands/oa/apex/log/delete';
 class BatchMock extends EventEmitter { public poll() { } }
 const mockSubscripton = new BatchMock();
 const requestTimeout = 1000;
+const BASE_REQUEST = 'q=SELECT%20Id%20FROM%20ApexLog';
+const TEST_USER_ID = '0054J000005OInNQAW';
+const IDENTITY_REQUEST_URL = 'https://login.salesforce.com/id/00D0Y000001dzTZUAY/' + TEST_USER_ID;
 
 describe('apex:log:delete, 2 records queried', () => {
   beforeEach(() => {
@@ -40,7 +43,7 @@ describe('apex:log:delete, 2 records queried', () => {
       .withOrg({ username: 'test@org.com' }, true)
       .withConnectionRequest(request => {
         const requestMap = ensureJsonMap(request);
-        if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+        if (ensureString(requestMap.url).match(BASE_REQUEST)) {
           return Promise.resolve({ done: true, records: [{ Id: '07L1w000007OMcYEAW' }, { Id: '07L1w000007OMchEAG' }] });
         }
         return Promise.resolve({ records: [] });
@@ -60,7 +63,7 @@ describe('apex:log:delete, 2 records queried', () => {
       .withOrg({ username: 'test@org.com' }, true)
       .withConnectionRequest(request => {
         const requestMap = ensureJsonMap(request);
-        if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+        if (ensureString(requestMap.url).match(BASE_REQUEST)) {
           return Promise.resolve({ done: true, records: [{ Id: '07L1w000007OMcYEAW' }, { Id: '07L1w000007OMchEAG' }] });
         }
         return Promise.resolve({ records: [] });
@@ -76,7 +79,7 @@ describe('apex:log:delete, 2 records queried', () => {
       .withOrg({ username: 'test@org.com' }, true)
       .withConnectionRequest(request => {
         const requestMap = ensureJsonMap(request);
-        if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+        if (ensureString(requestMap.url).match(BASE_REQUEST)) {
           return Promise.resolve({ done: true, records: [{ Id: '07L1w000007OMcYEAW' }, { Id: '07L1w000007OMchEAG' }] });
         }
         return Promise.resolve({ records: [] });
@@ -93,7 +96,7 @@ describe('apex:log:delete, 2 records queried', () => {
       .withOrg({ username: 'test@org.com' }, true)
       .withConnectionRequest(request => {
         const requestMap = ensureJsonMap(request);
-        if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+        if (ensureString(requestMap.url).match(BASE_REQUEST)) {
           return Promise.resolve({ done: true, records: [{ Id: '07L1w000007OMcYEAW' }, { Id: '07L1w000007OMchEAG' }] });
         }
         return Promise.resolve({ records: [] });
@@ -119,7 +122,7 @@ describe('apex:log:delete, 2 records queried', () => {
       .withOrg({ username: 'test@org.com' }, true)
       .withConnectionRequest(request => {
         const requestMap = ensureJsonMap(request);
-        if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+        if (ensureString(requestMap.url).match(BASE_REQUEST)) {
           return Promise.resolve({ done: true, records: [{ Id: '07L1w000007OMcYEAW' }, { Id: '07L1w000007OMchEAG' }] });
         }
         return Promise.resolve({ records: [] });
@@ -134,7 +137,7 @@ describe('apex:log:delete, 2 records queried', () => {
       .withOrg({ username: 'test@org.com' }, true)
       .withConnectionRequest(request => {
         const requestMap = ensureJsonMap(request);
-        if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+        if (ensureString(requestMap.url).match(BASE_REQUEST)) {
           return Promise.resolve({ done: true, records: [{ id: '07L1w000007NcJtEAK', success: true, errors: [] }, { id: '07L1w000007NcJoEAK', success: false, errors: ['test error'] }] });
         }
         return Promise.resolve({ records: [] });
@@ -158,7 +161,7 @@ describe('apex:log:delete, 2 records queried', () => {
       .withOrg({ username: 'test@org.com' }, true)
       .withConnectionRequest(request => {
         const requestMap = ensureJsonMap(request);
-        if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+        if (ensureString(requestMap.url).match(BASE_REQUEST)) {
           return Promise.resolve({ done: true, records: [{ Id: '07L1w000007OMcYEAW' }, { Id: '07L1w000007OMchEAG' }] });
         }
         return Promise.resolve({ records: [] });
@@ -177,7 +180,7 @@ describe('apex:log:delete, check only', () => {
     .withOrg({ username: 'test@org.com' }, true)
     .withConnectionRequest(request => {
       const requestMap = ensureJsonMap(request);
-      if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+      if (ensureString(requestMap.url).match(BASE_REQUEST)) {
         return Promise.resolve({ done: true, records: [{ id: '07L1w000007NcJtEAK', success: true, errors: [] }, { id: '07L1w000007NcJoEAK', success: false, errors: ['test error'] }] });
       }
       return Promise.resolve({ records: [] });
@@ -192,7 +195,7 @@ describe('apex:log:delete, check only', () => {
     .withOrg({ username: 'test@org.com' }, true)
     .withConnectionRequest(request => {
       const requestMap = ensureJsonMap(request);
-      if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+      if (ensureString(requestMap.url).match(BASE_REQUEST)) {
         return Promise.resolve({ done: true, records: [{ id: '07L1w000007NcJtEAK', success: true, errors: [] }, { id: '07L1w000007NcJoEAK', success: false, errors: ['test error'] }] });
       }
       return Promise.resolve({ records: [] });
@@ -202,6 +205,64 @@ describe('apex:log:delete, check only', () => {
     .it('runs oa:apex:log:delete -u test@org.com -c --json', ctx => {
       expect(ctx.stdout).to.contain('"numberOfQueriedLogs": 2');
     });
+
+    test
+    .withOrg({ username: 'test@org.com' }, true)
+    .withConnectionRequest(request => {
+      const requestMap = ensureJsonMap(request);
+      if (ensureString(requestMap.url).match(BASE_REQUEST + `%20WHERE%20LogUserId%20%3D%20'` + TEST_USER_ID + `'`)) {
+        return Promise.resolve({ done: true, records: [{ id: '07L1w000007NcJtEAK', success: true, errors: [] }, { id: '07L1w000007NcJoEAK', success: true, errors: [] }] });
+      }
+      if (ensureString(requestMap.url).match('/services/data/')) {
+        return Promise.resolve({ done: true, identity: IDENTITY_REQUEST_URL});
+      }
+      if (ensureString(requestMap.url).match(IDENTITY_REQUEST_URL)) {
+        return Promise.resolve({ done: true, user_id: TEST_USER_ID});
+      }
+
+      return Promise.resolve({ records: [] });
+    })
+    .stdout()
+    .command(['oa:apex:log:delete', '-c', '-m', '-u', 'test@org.com'])
+    .it('runs oa:apex:log:delete -c -m -u test@org.com', ctx => {
+      expect(ctx.stdout).to.contain('Number of ApexLog records to be deleted: 2');
+    });
+
+    test
+    .withOrg({ username: 'test@org.com' }, true)
+    .withConnectionRequest(request => {
+      const requestMap = ensureJsonMap(request); 
+      if (ensureString(requestMap.url).match(BASE_REQUEST + `%20WHERE%20LogUser.Username`)) {
+        return Promise.resolve({ done: true, records: [{ id: '07L1w000007NcJtEAK', success: true, errors: [] }, { id: '07L1w000007NcJoEAK', success: true, errors: [] }] });
+      }
+      if (ensureString(requestMap.url).match('/services/data/')) {
+        return Promise.resolve({ done: true, identity: IDENTITY_REQUEST_URL});
+      }
+      if (ensureString(requestMap.url).match(IDENTITY_REQUEST_URL)) {
+        return Promise.resolve({ done: true, user_id: TEST_USER_ID});
+      }
+      return Promise.resolve({ records: [] });
+    })
+    .stdout()
+    .command(['oa:apex:log:delete', '-c', '-n', 'testUser@org.com', '-u', 'test@org.com'])
+    .it('runs oa:apex:log:delete -c -n -testUser@org.com -u test@org.com', ctx => {
+      expect(ctx.stdout).to.contain('Number of ApexLog records to be deleted: 2');
+    });
+
+    test
+    .withOrg({ username: 'test@org.com' }, true)
+    .withConnectionRequest(request => {
+      const requestMap = ensureJsonMap(request); 
+      if (ensureString(requestMap.url).match(BASE_REQUEST + `%20WHERE%20Status`)) {
+        return Promise.resolve({ done: true, records: [{ id: '07L1w000007NcJtEAK', success: true, errors: [] }, { id: '07L1w000007NcJoEAK', success: true, errors: [] }] });
+      }
+      return Promise.resolve({ records: [] });
+    })
+    .stdout()
+    .command(['oa:apex:log:delete', '-c', '-s', 'SUCCESS', '-u', 'test@org.com'])
+    .it('runs oa:apex:log:delete -c -s SUCCESS -u test@org.com', ctx => {
+      expect(ctx.stdout).to.contain('Number of ApexLog records to be deleted: 2');
+    });
 });
 
 describe('apex:log:delete, zero logs queried', () => {
@@ -210,7 +271,7 @@ describe('apex:log:delete, zero logs queried', () => {
     .withOrg({ username: 'test@org.com' }, true)
     .withConnectionRequest(request => {
       const requestMap = ensureJsonMap(request);
-      if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+      if (ensureString(requestMap.url).match(BASE_REQUEST)) {
         return Promise.resolve({ done: true, records: [] });
       }
       return Promise.resolve({ records: [] });
@@ -218,14 +279,14 @@ describe('apex:log:delete, zero logs queried', () => {
     .stdout()
     .command(['oa:apex:log:delete', '-u', 'test@org.com'])
     .it('runs oa:apex:log:delete -u test@org.com', ctx => {
-      expect(ctx.stdout).to.contain('There are no Apex logs on Your org!');
+      expect(ctx.stdout).to.contain('Query: SELECT Id FROM ApexLog does not return any record');
     });
 
   test
     .withOrg({ username: 'test@org.com' }, true)
     .withConnectionRequest(request => {
       const requestMap = ensureJsonMap(request);
-      if (ensureString(requestMap.url).match('q=SELECT%20Id%20FROM%20ApexLog')) {
+      if (ensureString(requestMap.url).match(BASE_REQUEST)) {
         return Promise.resolve({ done: true, records: [] });
       }
       return Promise.resolve({ records: [] });
@@ -234,5 +295,29 @@ describe('apex:log:delete, zero logs queried', () => {
     .command(['oa:apex:log:delete', '-u', 'test@org.com', '--json'])
     .it('runs oa:apex:log:delete -u test@org.com --json', ctx => {
       expect(ctx.stdout).to.contain('"numberOfQueriedLogs": 0');
+    });
+
+    test
+    .withOrg({ username: 'test@org.com' }, true)
+    .withConnectionRequest(request => {
+      const requestMap = ensureJsonMap(request);
+      if (ensureString(requestMap.url).match(BASE_REQUEST)) {
+        return Promise.resolve({ done: true, records: [] });
+      }
+      if (ensureString(requestMap.url).match('/services/data/')) {
+        return Promise.resolve({ done: true, identity: IDENTITY_REQUEST_URL});
+      }
+      if (ensureString(requestMap.url).match(IDENTITY_REQUEST_URL)) {
+        return Promise.resolve({ done: true, user_id: TEST_USER_ID});
+      }
+      if (ensureString(requestMap.url).match(BASE_REQUEST + `%20WHERE%20LogUserId%20%3D%20'` + TEST_USER_ID + `'`)) {
+        return Promise.resolve({ done: true, records: []});
+      }
+      return Promise.resolve({ records: [] });
+    })
+    .stdout()
+    .command(['oa:apex:log:delete', '-m', '-u', 'test@org.com'])
+    .it('runs oa:apex:log:delete -m -u test@org.com', ctx => {
+      expect(ctx.stdout).to.contain('Query: SELECT Id FROM ApexLog WHERE LogUserId = \''+ TEST_USER_ID + '\' does not return any record');
     });
 });

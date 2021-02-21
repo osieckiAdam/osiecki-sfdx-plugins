@@ -32,23 +32,36 @@ sfdx oa:apex:log:delete --json'
         "numberOfQueriedLogs": 3,
         "jobID": "7501w000002WnWcAAK"
       }
-    }
+    }`,
     `
+sfdx oa:apex:log:delete -s "Internal Salesforce.com Error,success"
+    Query: SELECT Id FROM ApexLog WHERE Status IN ('Internal Salesforce.com Error','success') does not return any record`,
+    `
+sfdx oa:apex:log:delete -m 
+    Query: SELECT Id FROM ApexLog WHERE LogUserId = '0054J000005OInNQAW' does not return any record`,
+    `
+oa:apex:log:delete -c -n test1@user.org,test2@user.org
+    Query: SELECT Id FROM ApexLog WHERE LogUser.Username IN ('test1@user.org','test2@user.org') does not return any record`
   ];
 
   protected static requiresUsername = true;
   protected static flagsConfig = {
     checkonly: flags.boolean({ char: 'c', description: messages.getMessage('checkOnlyFlagDescription') }),
-    async: flags.boolean({ char: 'a', description: messages.getMessage('asyncFlagDescription') })
+    async: flags.boolean({ char: 'a', description: messages.getMessage('asyncFlagDescription') }),
+    status: flags.array({ char: 's', description: messages.getMessage('statusFlagDescription') }),
+    name: flags.array({ char: 'n', description: messages.getMessage('nameFlagDescription') }),
+    my: flags.boolean({ char: 'm', description: messages.getMessage('myFlagDescription') })
   };
+  private queryString: String;
 
   public async run(): Promise<AnyJson> {
 
     let response: AnyJson = ({ numberOfQueriedLogs: 0 });
     const conn = this.org.getConnection();
-    const apexLogRecords = await this.getAllApexLogs();
 
-    if (apexLogRecords.length > 0) {
+    const apexLogRecords = await this.getApexLogs(conn);
+
+    if (apexLogRecords && apexLogRecords.length > 0) {
       this.ux.log(messages.getMessage('recordsLenghtMessage', [apexLogRecords.length]));
       if (this.flags.checkonly) {
         response = ({ numberOfQueriedLogs: apexLogRecords.length });
@@ -57,20 +70,56 @@ sfdx oa:apex:log:delete --json'
         response = await this.trackBatchProgress(batch, apexLogRecords.length);
       }
     } else {
-      this.ux.log(messages.getMessage('noLogsMessage'));
+      this.ux.log(messages.getMessage('query') + this.queryString + ' ' + messages.getMessage('doesNotReturnAnyRecord'));
       response = ({ numberOfQueriedLogs: 0 });
     }
     return response;
   }
 
-  public async getAllApexLogs() {
-    const response = this.org.getConnection()
+  public async getApexLogs(conn: core.Connection) {
+
+    let query = this.org.getConnection()
       .sobject('ApexLog')
-      .find({}, ['Id'])
-      .execute({ autoFetch: true, maxFetch: 10000 }, async (err, records) => {
-        return records;
-      });
+      .find({}, ['Id']);
+
+    let whereClause = await this.buildWhereClause(conn);
+    if (whereClause) {
+      query = query.where(whereClause);
+    }
+    this.queryString = await query.toSOQL((err, soql) => {
+      return soql;
+    })
+
+    const response = query.execute({ autoFetch: true, maxFetch: 20000 }, async (err, records) => {
+      return records;
+    });
     return response;
+  }
+
+  private async buildWhereClause(conn: core.Connection): Promise<String> {
+
+    let whereClause: Array<String> = new Array<String>();
+    if (this.flags.my) {
+      const identitystr = (await conn.identity()).user_id;
+      whereClause.push("LogUserId = '" + identitystr + "'");
+    } else if (this.flags.name) {
+      let formatedNames = this.flags.name.reduce((acc, currval) => {
+        return acc + '\'' + currval + '\',';
+      }, '').slice(0, -1);
+      whereClause.push(`LogUser.Username IN (${formatedNames})`);
+    }
+
+    if (this.flags.status) {
+      let formatedStatuses = this.flags.status.reduce((acc, currval) => {
+        return acc + '\'' + currval + '\',';
+      }, '').slice(0, -1);
+      whereClause.push(`Status IN (${formatedStatuses})`);
+    }
+
+    if (whereClause.length) {
+      return whereClause.join(' AND ');
+    }
+    return '';
   }
 
   public createBatch(conn: core.Connection, records: Array<{ Id?: string; }>): Batch {
