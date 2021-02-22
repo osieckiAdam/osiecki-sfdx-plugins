@@ -58,17 +58,19 @@ sfdx plugins:link
 ## Commands
 
 <!-- commands -->
-* [`sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-oaapexlogdelete--c--a--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx oa:apex:log:delete [-c] [-a] [-s <array>] [-n <array>] [-m] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-oaapexlogdelete--c--a--s-array--n-array--m--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx oa:data:soql:sel -f <string> [-w <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-oadatasoqlsel--f-string--w-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
-## `sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sfdx oa:apex:log:delete [-c] [-a] [-s <array>] [-n <array>] [-m] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
 delete ApexLog entries from Your org
 
 ```
+delete ApexLog entries from Your org
+
 USAGE
-  $ sfdx oa:apex:log:delete [-c] [-a] [-u <string>] [--apiversion <string>] [--json] [--loglevel 
-  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+  $ sfdx oa:apex:log:delete [-c] [-a] [-s <array>] [-n <array>] [-m] [-u <string>] [--apiversion <string>] [--json] 
+  [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
   -a, --async                                                                       do not wait for successful
@@ -79,6 +81,14 @@ OPTIONS
   -c, --checkonly                                                                   use this parameter to only check
                                                                                     number of debug logs without
                                                                                     deleting them
+
+  -m, --my                                                                          delete only my logs
+
+  -n, --name=name                                                                   delete only logs created by
+                                                                                    specified user names
+
+  -s, --status=status                                                               delete only logs with specified
+                                                                                    statuses
 
   -u, --targetusername=targetusername                                               username or alias for the target
                                                                                     org; overrides default target org
@@ -117,13 +127,24 @@ EXAMPLES
            "jobID": "7501w000002WnWcAAK"
          }
        }
+
+  sfdx oa:apex:log:delete -s "Internal Salesforce.com Error,success"
+       Query: SELECT Id FROM ApexLog WHERE Status IN ('Internal Salesforce.com Error','success') does not return any 
+  record
+
+  sfdx oa:apex:log:delete -m
+       Query: SELECT Id FROM ApexLog WHERE LogUserId = '0054J000005OInNQAW' does not return any record
+
+  oa:apex:log:delete -c -n test1@user.org,test2@user.org
+       Query: SELECT Id FROM ApexLog WHERE LogUser.Username IN ('test1@user.org','test2@user.org') does not return any 
+  record
 ```
 
-_See code: [lib\commands\oa\apex\log\delete.js](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/v0.2.0/lib\commands\oa\apex\log\delete.js)_
+_See code: [src/commands/oa/apex/log/delete.ts](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/v0.2.1/src/commands/oa/apex/log/delete.ts)_
 
 ## `sfdx oa:data:soql:sel -f <string> [-w <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
-generate query for all fields from SObject (SEL * FROM SObject)
+generate query string for all fields from SObject (SEL * FROM SObject)
 
 ```
 USAGE
@@ -168,5 +189,4 @@ EXAMPLES
        SystemModstamp, StartTime, Location FROM ApexLog WHERE Where LogLength > 100
 ```
 
-_See code: [lib\commands\oa\data\soql\sel.js](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/v0.2.0/lib\commands\oa\data\soql\sel.js)_
-<!-- commandsstop -->
+_See code: [src/commands/oa/data/soql/sel.ts](https://github.com/osieckiAdam/osiecki-sfdx-plugins/blob/v0.2.1/src/commands/oa/data/soql/sel.ts)_
