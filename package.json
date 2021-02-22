@@ -1,7 +1,7 @@
 {
   "name": "osiecki-sfdx-plugins",
   "description": "SFDX plugins by Adam Osiecki",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Adam Osiecki @osieckiAdam",
   "bugs": "https://github.com/osieckiAdam/osiecki-sfdx-plugins/issues",
   "dependencies": {
